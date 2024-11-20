@@ -25,11 +25,14 @@ class QuineMcCluskey {
     }
 
     convertMintermsToBinary() {
-        
+        const numVariables = this.variables.length;
+        this.binaryMinterms = this.minterms.map((minterm) =>
+            minterm.toString(2).padStart(numVariables, '0')
+        );
     }
 
     groupMintermsByOnes() {
-        
+
     }
 
     findPrimeImplicants() {
