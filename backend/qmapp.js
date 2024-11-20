@@ -32,7 +32,15 @@ class QuineMcCluskey {
     }
 
     groupMintermsByOnes() {
-
+        const groups = {};
+        this.binaryMinterms.forEach((term) => {
+            const countOnes = term.split('1').length - 1;
+            if (!groups[countOnes]) {
+                groups[countOnes] = [];
+            }
+            groups[countOnes].push(term);
+        });
+        return groups;
     }
 
     findPrimeImplicants() {
