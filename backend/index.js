@@ -1,5 +1,5 @@
 const express = require('express');
-const qmapp = require('./qmapp');
+const QuineMcCluskey = require('./qmapp');
 const cors = require('cors');
 
 const app = express();
@@ -11,8 +11,10 @@ app.post('/minimize', (req, res) => {
     if (!variables || !minterms) {
         return res.status(400).json({ error: 'Invalid input' });
     }
-    const result = qmapp.minimize(variables, minterms);
-    res.json({ minimizedExpression: result });
+
+    const qm = new QuineMcCluskey(variables, minterms)
+    const minimizedExpression = qm.minimize();
+    res.json({ minimizedExpression });
 });
 
 const PORT = 5000;
