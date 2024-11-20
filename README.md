@@ -1,0 +1,2 @@
+# qmcalc
+Quine McCluskey calculator
