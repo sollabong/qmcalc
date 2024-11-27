@@ -13,8 +13,8 @@ app.post('/minimize', (req, res) => {
     }
 
     const qm = new QuineMcCluskey(variables, minterms)
-    const minimizedExpression = qm.minimize();
-    res.json({ minimizedExpression });
+    const result = qm.minimize();
+    res.json({ result });
 });
 
 const PORT = 5000;

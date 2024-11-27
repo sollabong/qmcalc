@@ -11,5 +11,10 @@
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^3.1.7"
+  },
+  "dependencies": {
+    "@helander/quine-mccluskey-js": "^1.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.1"
   }
 }
