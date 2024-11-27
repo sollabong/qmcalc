@@ -1,4 +1,5 @@
 const API_URL = 'http://localhost:5000/minimize';
+// const API_URL = 'https://damp-fjord-13483-1b47971e65ca.herokuapp.com/minimize';
 
 export async function minimizeExpression(variables, minterms) {
     console.log(variables, minterms);
