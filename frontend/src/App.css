@@ -7,6 +7,7 @@
 body {
   min-height: 100vh;
   min-width: 100vw;
-  background-color: lightsteelblue;
+  background: rgb(110,29,115);
+  background: radial-gradient(circle, rgba(110,29,115,1) 0%, rgba(141,0,249,1) 0%, rgba(3,3,52,1) 71%);
 }
 

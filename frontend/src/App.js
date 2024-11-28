@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
-import './App.css';
 import { minimizeExpression } from './api';
-import { Container, TextField, Button, Typography, Box, Paper } from '@mui/material';
+import { Container, TextField, Button, Typography, Box } from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import Paper from '@mui/material/Paper';
+import './App.css';
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 
 function App() {
     const [numVariables, setNumVariables] = useState('');  
@@ -54,13 +63,22 @@ function App() {
     };
 
     return (
-        <Container maxWidth="sm" style={{ marginTop: '30px', marginBottom: '30px', backgroundColor: 'lightsteelblue' }}>
-            <Paper elevation={3} style={{ padding: '20px', backgroundColor: 'whitesmoke' }}>
+        <ThemeProvider theme={darkTheme}>
+        <CssBaseline />
+        <Container maxWidth="sm" style={{ marginTop: '30px', marginBottom: '30px'}} backgroundColor={'radial-gradient(ellipse at 50% 50%, hsl(210, 100%, 97%), hsl(0, 0%, 100%))'}>
+            <Paper square={false} elevation={4}  sx={{
+                        padding: '20px',
+                        marginTop: '30px',
+                        textAlign: 'center',
+                        background: '#030334'
+                    }}>
                 <Typography variant="h5" gutterBottom align="center" fontWeight={'bold'}>
                     QUINE-MCCLUSKEY KALKULÁTOR
                 </Typography>
                 <Box component="form" onSubmit={handleSubmit} noValidate>
-                    <TextField
+                    <TextField 
+                        id="outlined-basic" 
+                        variant="outlined"
                         label="Változók száma (pl 4, ami ABCD)"
                         fullWidth
                         margin="normal"
@@ -69,6 +87,8 @@ function App() {
                         required
                     />
                     <TextField
+                        id="outlined-basic" 
+                        variant="outlined"
                         label="Mintermek (pl 0,1,5,7,10,14)"
                         fullWidth
                         margin="normal"
@@ -77,79 +97,75 @@ function App() {
                         required
                     />
                     <Box textAlign="center" marginTop={3}>
-                        <Button variant="contained" color={'primary'} type="submit">
+                        <Button variant="contained" type="submit" size="large">
                             Minimalizálás
                         </Button>
                     </Box>
                 </Box>
                 {result && (
-                    <Paper elevation={5} sx={{
-                        marginTop: '30px',
+                    <Paper square={false} elevation={5}  sx={{
+                        padding: '30px',
+                        marginTop: '50px',
                         textAlign: 'center',
+                        background: '#6408ab'
+
                     }}>
-                        <Box padding={'40px'} backgroundColor={'white'}>
-                            <Typography variant="h5" gutterBottom fontWeight={'bold'}>
-                                Minimalizált függvény:
-                            </Typography>
-                            <Typography variant="h6" fontSize={32} color={'primary'} style={{ wordWrap: 'break-word' }}>
-                                F = {result}
-                            </Typography>
-                        </Box>
+                        <Typography variant="h5" gutterBottom fontWeight={'bold'}>
+                            Minimalizált függvény:
+                        </Typography>
+                        <Typography variant="h6" fontSize={32}  color="#030334" wordWrap='break-word'>
+                            F = {result}
+                        </Typography>
                     </Paper>
                 )}
                 {binaryTerms && (
-                    <Paper sx={{
+                    <Paper square={false} elevation={3}  sx={{
                         padding: '20px',
-                        backgroundColor: 'white',
                         marginTop: '30px',
                         textAlign: 'center',
+                        background: '#190e54'
                     }}>
-                        <Box>
-                            <Typography variant="h5" gutterBottom>
-                                Bináris kifejezések:
-                            </Typography>
-                            <Typography variant="h6" color={'info'}>
-                                {formatArray(binaryTerms)}
-                            </Typography>
-                        </Box>
+                        <Typography variant="h5" gutterBottom>
+                            Bináris kifejezések:
+                        </Typography>
+                        <Typography variant="h6" color="#a46ad0">
+                            {formatArray(binaryTerms)}
+                        </Typography>
                     </Paper>
                 )}
                 {primeImplicants && (
-                    <Paper sx={{
+                    <Paper square={false} elevation={3}  sx={{
                         padding: '20px',
-                        backgroundColor: 'white',
                         marginTop: '30px',
                         textAlign: 'center',
+                        background: '#190e54'
                     }}>
-                        <Box>
-                            <Typography variant="h5" gutterBottom>
-                                Prím implikánsok:
-                            </Typography>
-                            <Typography variant="h6" color={'info'}>
-                                {formatArray(primeImplicants)}
-                            </Typography>
-                        </Box>
+                        <Typography variant="h5" gutterBottom>
+                            Prím implikánsok:
+                        </Typography>
+                        <Typography variant="h6" color="#a46ad0">
+                            {formatArray(primeImplicants)}
+                        </Typography>
                     </Paper>
                 )}
                 {essentialPrimeImplicants && (
-                    <Paper sx={{
+                    <Paper square={false} elevation={3}  sx={{
                         padding: '20px',
-                        backgroundColor: 'white',
                         marginTop: '30px',
                         textAlign: 'center',
+                        background: '#190e54'
                     }}>
-                        <Box>
-                            <Typography variant="h5" gutterBottom>
-                                Nélkülözhetetlen prím implikánsok:
-                            </Typography>
-                            <Typography variant="h6" color={'info'}>
-                                {formatArray(essentialPrimeImplicants)}
-                            </Typography>
-                        </Box>
+                        <Typography variant="h5" gutterBottom>
+                            Nélkülözhetetlen prím implikánsok:
+                        </Typography>
+                        <Typography variant="h6" color="#a46ad0">
+                            {formatArray(essentialPrimeImplicants)}
+                        </Typography>
                     </Paper>
                 )}
             </Paper>
         </Container>
+    </ThemeProvider>
     );
 }
 
