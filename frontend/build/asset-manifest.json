@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/qmcalc/static/css/main.90717ae2.css",
+    "main.js": "/qmcalc/static/js/main.58968363.js",
+    "index.html": "/qmcalc/index.html",
+    "main.90717ae2.css.map": "/qmcalc/static/css/main.90717ae2.css.map",
+    "main.58968363.js.map": "/qmcalc/static/js/main.58968363.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.90717ae2.css",
+    "static/js/main.58968363.js"
+  ]
+}
