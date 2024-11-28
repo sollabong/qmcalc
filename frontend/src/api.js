@@ -1,4 +1,4 @@
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = 'https://damp-fjord-13483-1b47971e65ca.herokuapp.com//minimize';
 
 export async function minimizeExpression(variables, minterms) {
     console.log(variables, minterms);
