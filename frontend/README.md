@@ -10,6 +10,20 @@ This is a Boolean minimization tool using the Quine-McCluskey algorithm. Built w
 ## Setup
 1. Clone the repository.
 2. Install dependencies:
-   ```bash
+
+   cd frontend
    npm install
-   cd frontend && npm install
+   cd ..
+   cd backend
+   npm install
+   cd ..
+
+3. Run the app:
+   cd frontend
+   npm start
+   cd ..
+   cd backend
+   npx nodemon index.js
+
+## Live
+https://sollabong.github.io/qmcalc
