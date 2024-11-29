@@ -4,6 +4,7 @@ import { Container, TextField, Button, Typography, Box } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Paper from '@mui/material/Paper';
+import CircularProgress from '@mui/material/CircularProgress';
 import './App.css';
 
 const darkTheme = createTheme({
@@ -20,6 +21,7 @@ function App() {
     const [primeImplicants, setPrimeImplicants] = useState('');
     const [essentialPrimeImplicants, setEssentialPrimeImplicants] = useState('');
     const [binaryTerms, setBinaryTerms] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const generateVariables = (num) => {
       const variableNames = [];
@@ -50,6 +52,7 @@ function App() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
         const mintermsArray = formatMinterms(minterms)
         try {
             const data = await minimizeExpression(variables, mintermsArray);
@@ -67,6 +70,8 @@ function App() {
             console.error('Hiba:', error);
             resetBoxes()
             setResult('Hiba történt számolás közben');
+        } finally {
+            setLoading(false); 
         }         
     };
 
@@ -75,11 +80,11 @@ function App() {
         <CssBaseline />
         <Container maxWidth="sm" style={{ margin: 'auto'}} backgroundColor={'#280d55'}>
             <Paper square={false} elevation={5}  sx={{
-                        padding: '20px',
-                        marginTop: '30px',
-                        textAlign: 'center',
-                        background: 'rgba(26,34,73,0.5)'
-                    }}>
+                padding: '20px',
+                marginTop: '30px',
+                textAlign: 'center',
+                background: 'rgba(26,34,73,0.5)'
+            }}>
                 <Typography variant="h5" gutterBottom align="center" fontWeight={'bold'} color={'#94bbe9'}>
                     QUINE-MCCLUSKEY KALKULÁTOR
                 </Typography>
@@ -111,7 +116,14 @@ function App() {
                         </Button>
                     </Box>
                 </Box>
-                {result && (
+                {loading ? (
+                    <Box textAlign="center" marginTop={4}>
+                        <CircularProgress />
+                        <Typography variant="Body1" marginTop={2}>
+                            Számítás folyamatban...
+                        </Typography>
+                    </Box>
+                ) : (result && (
                     <Paper square={false} elevation={5}  sx={{
                         padding: '30px',
                         marginTop: '50px',
@@ -122,11 +134,11 @@ function App() {
                         <Typography variant="h5" gutterBottom fontWeight={'bold'}>
                             Minimalizált függvény:
                         </Typography>
-                        <Typography variant="h5" fontSize={32}  color="#030334" wordWrap='break-word'>
+                        <Typography variant="h5" fontSize={32}  color="rgb(26,34,73)" wordWrap='break-word'>
                             {result}
                         </Typography>
                     </Paper>
-                )}
+                ))}
                 {binaryTerms && (
                     <Paper square={false} elevation={3}  sx={{
                         padding: '20px',
