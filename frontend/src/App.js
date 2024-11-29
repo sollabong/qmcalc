@@ -119,7 +119,7 @@ function App() {
                 {loading ? (
                     <Box textAlign="center" marginTop={4}>
                         <CircularProgress />
-                        <Typography variant="Body1" marginTop={2}>
+                        <Typography variant="h6" marginTop={2}>
                             Számítás folyamatban...
                         </Typography>
                     </Box>
