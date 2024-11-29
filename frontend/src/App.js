@@ -34,6 +34,12 @@ function App() {
 
     const formatArray = (arr) => (Array.isArray(arr) ? arr.join(' , ') : arr);
 
+    const resetBoxes = () => {
+        setPrimeImplicants('');
+        setEssentialPrimeImplicants('');
+        setBinaryTerms('');
+    }
+
     const handleNumVariablesChange = (e) => {
       const num = e.target.value;
       setNumVariables(num);
@@ -49,15 +55,17 @@ function App() {
             const data = await minimizeExpression(variables, mintermsArray);
             console.log(data)
             if(data['minimizedExpression'] === '') {
+                resetBoxes()
                 setResult('Nincs megoldás')
             }
-            setResult(data.result['minimizedExpression']); 
+            setResult(`F = ${data.result['minimizedExpression']}`); 
             setPrimeImplicants(data.result['primeImplicants']);
             setEssentialPrimeImplicants(data.result['essentialPrimeImplicants']);
             setBinaryTerms(data.result['binaryTerms']);
             console.log(data)
         } catch (error) {
             console.error('Hiba:', error);
+            resetBoxes()
             setResult('Hiba történt számolás közben');
         }         
     };
@@ -65,14 +73,14 @@ function App() {
     return (
         <ThemeProvider theme={darkTheme}>
         <CssBaseline />
-        <Container maxWidth="sm" style={{ marginTop: '30px', marginBottom: '30px'}} backgroundColor={'radial-gradient(ellipse at 50% 50%, hsl(210, 100%, 97%), hsl(0, 0%, 100%))'}>
-            <Paper square={false} elevation={4}  sx={{
+        <Container maxWidth="sm" style={{ margin: 'auto'}} backgroundColor={'#280d55'}>
+            <Paper square={false} elevation={5}  sx={{
                         padding: '20px',
                         marginTop: '30px',
                         textAlign: 'center',
-                        background: '#030334'
+                        background: 'rgba(26,34,73,0.5)'
                     }}>
-                <Typography variant="h5" gutterBottom align="center" fontWeight={'bold'}>
+                <Typography variant="h5" gutterBottom align="center" fontWeight={'bold'} color={'#94bbe9'}>
                     QUINE-MCCLUSKEY KALKULÁTOR
                 </Typography>
                 <Box component="form" onSubmit={handleSubmit} noValidate>
@@ -98,7 +106,8 @@ function App() {
                     />
                     <Box textAlign="center" marginTop={3}>
                         <Button variant="contained" type="submit" size="large">
-                            Minimalizálás
+                            {result ? 'Új Minimalizálás' 
+                            : 'Minimalizálás'}
                         </Button>
                     </Box>
                 </Box>
@@ -107,14 +116,14 @@ function App() {
                         padding: '30px',
                         marginTop: '50px',
                         textAlign: 'center',
-                        background: '#6408ab'
+                        background: '#94bbe9'
 
                     }}>
                         <Typography variant="h5" gutterBottom fontWeight={'bold'}>
                             Minimalizált függvény:
                         </Typography>
-                        <Typography variant="h6" fontSize={32}  color="#030334" wordWrap='break-word'>
-                            F = {result}
+                        <Typography variant="h5" fontSize={32}  color="#030334" wordWrap='break-word'>
+                            {result}
                         </Typography>
                     </Paper>
                 )}
@@ -123,12 +132,12 @@ function App() {
                         padding: '20px',
                         marginTop: '30px',
                         textAlign: 'center',
-                        background: '#190e54'
+                        background: 'rgba(26,34,73,0.5)'
                     }}>
-                        <Typography variant="h5" gutterBottom>
+                        <Typography variant="h6" gutterBottom>
                             Bináris kifejezések:
                         </Typography>
-                        <Typography variant="h6" color="#a46ad0">
+                        <Typography variant="h5" color="#94bbe9">
                             {formatArray(binaryTerms)}
                         </Typography>
                     </Paper>
@@ -138,12 +147,12 @@ function App() {
                         padding: '20px',
                         marginTop: '30px',
                         textAlign: 'center',
-                        background: '#190e54'
+                        background: 'rgba(26,34,73,0.5)'
                     }}>
-                        <Typography variant="h5" gutterBottom>
+                        <Typography variant="h6" gutterBottom>
                             Prím implikánsok:
                         </Typography>
-                        <Typography variant="h6" color="#a46ad0">
+                        <Typography variant="h5" color="#94bbe9">
                             {formatArray(primeImplicants)}
                         </Typography>
                     </Paper>
@@ -153,17 +162,26 @@ function App() {
                         padding: '20px',
                         marginTop: '30px',
                         textAlign: 'center',
-                        background: '#190e54'
+                        background: 'rgba(26,34,73,0.5)'
                     }}>
-                        <Typography variant="h5" gutterBottom>
+                        <Typography variant="h6" gutterBottom>
                             Nélkülözhetetlen prím implikánsok:
                         </Typography>
-                        <Typography variant="h6" color="#a46ad0">
+                        <Typography variant="h5" color="#94bbe9">
                             {formatArray(essentialPrimeImplicants)}
                         </Typography>
                     </Paper>
                 )}
             </Paper>
+        </Container>
+        <Container sx={{
+            padding: '16px',
+            textAlign: 'center',
+        }}>
+            <Typography  color="#94bbe9" variant="body2">
+                created by 
+                <Typography variant="body1" color="#5f88b8" fontWeight={"bold"} > Gábor Soltész-Kéri</Typography>
+            </Typography>
         </Container>
     </ThemeProvider>
     );
