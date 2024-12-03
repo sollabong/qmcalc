@@ -22,6 +22,10 @@ function App() {
   const [essentialPrimeImplicants, setEssentialPrimeImplicants] = useState('');
   const [binaryTerms, setBinaryTerms] = useState('');
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({
+    numVariables: '',
+    minterms: '',
+  });
 
   const generateVariables = (num) => {
     const variableNames = [];
@@ -43,6 +47,38 @@ function App() {
     setBinaryTerms('');
   };
 
+  const getMinVariablesForMinterms = (mintermsArray) => {
+    const maxMinterm = Math.max(...mintermsArray); // Legnagyobb minterm
+    return Math.floor(Math.log2(maxMinterm)) + 1; // A szükséges változók száma
+  };
+
+  const validateInputs = () => {
+    const errors = {};
+    const mintermsArray = formatMinterms(minterms);
+
+    if (
+      isNaN(numVariables) ||
+      numVariables <= 0 ||
+      !Number.isInteger(Number(numVariables))
+    ) {
+      errors.numVariables = 'Csak pozitív egész számot adhatsz meg.';
+    } else {
+      const requiredVariables = getMinVariablesForMinterms(mintermsArray);
+
+      if (Number(numVariables) < requiredVariables) {
+        errors.numVariables = `A változók száma legalább ${requiredVariables} kell legyen, hogy az összes mintermet lefedd.`;
+      }
+    }
+
+    if (!/^\d+(,\d+)*$/.test(minterms) && minterms !== '') {
+      errors.minterms =
+        'A mintermek formátuma a következő legyen: szám,szám,...';
+    }
+
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const handleNumVariablesChange = (e) => {
     const num = e.target.value;
     setNumVariables(num);
@@ -53,6 +89,7 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateInputs()) return;
     setLoading(true);
     const mintermsArray = formatMinterms(minterms);
     try {
@@ -113,6 +150,8 @@ function App() {
               value={numVariables}
               onChange={handleNumVariablesChange}
               required
+              error={!!errors.numVariables}
+              helperText={errors.numVariables}
             />
             <TextField
               id="outlined-basic"
@@ -123,6 +162,8 @@ function App() {
               value={minterms}
               onChange={(e) => setMinterms(e.target.value)}
               required
+              error={!!errors.minterms}
+              helperText={errors.minterms}
             />
             <Box textAlign="center" marginTop={3}>
               <Button variant="contained" type="submit" size="large">
