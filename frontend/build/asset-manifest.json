@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/qmcalc/static/css/main.52ba1f01.css",
-    "main.js": "/qmcalc/static/js/main.e7de9ebe.js",
+    "main.js": "/qmcalc/static/js/main.e072803e.js",
     "index.html": "/qmcalc/index.html",
     "main.52ba1f01.css.map": "/qmcalc/static/css/main.52ba1f01.css.map",
-    "main.e7de9ebe.js.map": "/qmcalc/static/js/main.e7de9ebe.js.map"
+    "main.e072803e.js.map": "/qmcalc/static/js/main.e072803e.js.map"
   },
   "entrypoints": [
     "static/css/main.52ba1f01.css",
-    "static/js/main.e7de9ebe.js"
+    "static/js/main.e072803e.js"
   ]
 }

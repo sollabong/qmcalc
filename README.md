@@ -7,7 +7,7 @@ This is a Boolean minimization tool using the Quine-McCluskey algorithm. Built w
 - Input variables and minterms
 - Get the simplified expression
 
-## Setup
+## Setup and run locally
 1. Clone the repository.
 2. Install dependencies:
 
@@ -24,6 +24,7 @@ This is a Boolean minimization tool using the Quine-McCluskey algorithm. Built w
    - cd ..
    - cd backend
    - npx nodemon index.js
+
 
 ## Live
 https://sollabong.github.io/qmcalc
